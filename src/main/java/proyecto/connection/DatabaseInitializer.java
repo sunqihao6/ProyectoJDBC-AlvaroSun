@@ -34,14 +34,14 @@ public final class DatabaseInitializer {
 
             // PASO 3: crear/seleccionar la base MySQL o crear el archivo H2 si hace falta.
             if (mysql) {
-                DatabaseSchemaInitializer.createAndSelectMySqlDatabase(connection, databaseName);
+                DatabaseSchemaInitializer.crearBaseDatosMySQL(connection, databaseName);
             }
 
             // PASO 4: crear las tablas solo si todavía no existen.
-            DatabaseSchemaInitializer.createTables(connection, mysql);
+            DatabaseSchemaInitializer.crearTablas(connection, mysql);
 
             // PASO 5: restaurar el estado inicial antes de cada simulación.
-            InitialDataLoader.resetAndLoad(connection, mysql);
+            InitialDataLoader.restaurarYCargar(connection, mysql);
         }
 
         // PASO 6: try-with-resources cierra la conexión al terminar.
