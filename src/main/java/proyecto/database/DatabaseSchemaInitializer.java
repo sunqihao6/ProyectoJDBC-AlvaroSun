@@ -54,19 +54,17 @@ public final class DatabaseSchemaInitializer {
     /** Elimina las tablas actuales y antiguas del proyecto respetando sus claves foráneas. */
     private static void eliminarTablasExistentes(Connection connection) throws SQLException {
         String[] tablasEnOrdenDeBorrado = {
+                // Tablas dependientes de pedidos/productos: se eliminan primero.
                 "pago",
                 "detalle_pedido",
                 "movimientos_stock",
                 "inventario",
-                "producto_categoria",
-                "cliente_direccion",
-                "pedido", "pedidos",
-                "detalle",
-                "direcciones",
+                "producto_categoria", "cliente_direccion",
+                "pedido",
                 "categoria",
                 "producto",
                 "direccion",
-                "cliente",
+                "cliente"
         };
 
         for (String nombreTabla : tablasEnOrdenDeBorrado) {
