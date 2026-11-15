@@ -3,287 +3,226 @@ package proyecto.database;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
-/** Restaura los registros iniciales que corresponden al esquema actual de Tech Store. */
 public final class InitialDataLoader {
-    private static final Logger logger = LogManager.getLogger(InitialDataLoader.class);
+    private static final Logger LOGGER = LogManager.getLogger(InitialDataLoader.class);
 
     private InitialDataLoader() {
     }
 
-    /** Borra los datos de la simulación y vuelve a cargar el conjunto inicial. */
-    public static void restaurarYCargar(Connection connection, boolean mysql) throws SQLException {
-        boolean previousAutoCommit = connection.getAutoCommit();
-        connection.setAutoCommit(false);
+    // Borra los datos anteriores y vuelve a insertar el estado inicial
+    public static void restaurarYCargar(Connection conexion, boolean mysql) throws SQLException {
+        boolean autoCommitAnterior = conexion.getAutoCommit();
+        conexion.setAutoCommit(false);
+
         try {
-            // PASO 1: borrar primero las filas dependientes de otras tablas.
-            limpiarTablas(connection);
+            limpiarTablas(conexion);
+            insertarClientes(conexion);
+            insertarDirecciones(conexion);
+            relacionarClientesYDirecciones(conexion);
+            insertarCategorias(conexion);
+            insertarProductos(conexion);
+            relacionarProductosYCategorias(conexion);
+            insertarInventario(conexion);
+            insertarMovimientosStock(conexion);
 
-            // PASO 2: cargar datos principales antes de sus relaciones.
-            insertarClientes(connection);
-            insertarDirecciones(connection);
-            insertarRelacionesClienteDireccion(connection);
-            insertarProductos(connection);
-            insertarCategorias(connection);
-            insertarRelacionesProductoCategoria(connection);
-            insertarInventario(connection);
-            insertarPedidos(connection);
-            insertarDetallesPedido(connection);
-            insertarMovimientosStock(connection);
-            insertarPagos(connection);
 
-            // PASO 3: aplicar el conjunto inicial como una sola transacción.
-            connection.commit();
+            conexion.commit();
         } catch (SQLException | RuntimeException error) {
-            connection.rollback();
+            conexion.rollback();
             throw error;
         } finally {
-            connection.setAutoCommit(previousAutoCommit);
+            conexion.setAutoCommit(autoCommitAnterior);
         }
 
-        // PASO 4: preparar las columnas identity/autoincrement para nuevas filas.
-        reiniciarIdentificadores(connection, mysql);
-        logger.info("Datos restaurados al estado inicial de la simulación");
+        reiniciarIdentificadores(conexion, mysql);
+        LOGGER.info("Datos iniciales cargados: 5 categorías, 13 productos, 5 clientes y 2 pedidos");
     }
 
-    private static void limpiarTablas(Connection connection) throws SQLException {
-        // El orden respeta las claves foráneas declaradas en DatabaseSchemaInitializer.
-        String[] tables = {
-                "pago", "detalle_pedido", "pedido", "movimientos_stock", "inventario",
-                "producto_categoria", "cliente_direccion", "categoria", "producto",
-                "direccion", "cliente"
+    private static void limpiarTablas(Connection conexion) throws SQLException {
+        String[] tablasEnOrden = {
+                "pago",
+                "detalle_pedido",
+                "pedido",
+                "movimientos_stock",
+                "inventario",
+                "producto_categoria",
+                "cliente_direccion",
+                "categoria",
+                "producto",
+                "direccion",
+                "cliente"
         };
-        try (Statement statement = connection.createStatement()) {
-            for (String table : tables) {
-                statement.executeUpdate("DELETE FROM " + table);
+
+        try (Statement sentencia = conexion.createStatement()) {
+            for (String tabla : tablasEnOrden) {
+                sentencia.executeUpdate("DELETE FROM " + tabla);
             }
         }
     }
 
-    private static void insertarClientes(Connection connection) throws SQLException {
-        String sql = "INSERT INTO cliente (id_cliente,nombre,apellidos,email,telefono) "
-                + "VALUES (?,?,?,?,?)";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            agregarCliente(statement, 1, "Alba", "Sánchez Ruiz", "alba.sanchez@example.test", "600111222");
-            agregarCliente(statement, 2, "Marcos", "López Díaz", "marcos.lopez@example.test", "600333444");
-            statement.executeBatch();
-        }
+    private static void insertarClientes(Connection conexion) throws SQLException {
+        String sql = "INSERT INTO cliente VALUES (?,?,?,?,?)";
+        Object[][] filas = {
+                {1, "Alba", "Sánchez Ruiz", "alba@example.test", "600111222"},
+                {2, "Marcos", "López Díaz", "marcos@example.test", "600333444"},
+                {3, "Lucía", "Martín Ortega", "lucia@example.test", "611222333"},
+                {4, "Diego", "Navarro Gil", "diego@example.test", "622333444"},
+                {5, "Paula", "Serrano Vidal", "paula@example.test", "633444555"}
+        };
+        ejecutarBatch(conexion, sql, filas);
     }
 
-    private static void agregarCliente(PreparedStatement statement, long id, String name,
-                                  String surname, String email, String phone) throws SQLException {
-        statement.setLong(1, id);
-        statement.setString(2, name);
-        statement.setString(3, surname);
-        statement.setString(4, email);
-        statement.setString(5, phone);
-        statement.addBatch();
+    private static void insertarDirecciones(Connection conexion) throws SQLException {
+        String sql = "INSERT INTO direccion VALUES (?,?,?,?,?)";
+        Object[][] filas = {
+                {1, "Calle Mayor 10", "Madrid", "28013", "España"},
+                {2, "Av. del Puerto 25", "Valencia", "46021", "España"},
+                {3, "Calle Estación 18", "Sevilla", "41001", "España"},
+                {4, "Gran Vía 42", "Bilbao", "48011", "España"},
+                {5, "Calle Colón 7", "Zaragoza", "50001", "España"},
+                {6, "Rúa do Príncipe 15", "Vigo", "36202", "España"},
+                {7, "Paseo de Gracia 101", "Barcelona", "08008", "España"},
+                {8, "Calle Larios 9", "Málaga", "29005", "España"}
+        };
+        ejecutarBatch(conexion, sql, filas);
     }
 
-    private static void insertarDirecciones(Connection connection) throws SQLException {
-        String sql = "INSERT INTO direccion "
-                + "(id_direccion,calle,ciudad,codigo_postal,pais) VALUES (?,?,?,?,?)";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            agregarDireccion(statement, 1, "Calle Mayor 10", "Madrid", "28013");
-            agregarDireccion(statement, 2, "Avenida del Puerto 25", "Valencia", "46021");
-            statement.executeBatch();
-        }
-    }
-
-    private static void agregarDireccion(PreparedStatement statement, long id, String street,
-                                   String city, String postalCode) throws SQLException {
-        statement.setLong(1, id);
-        statement.setString(2, street);
-        statement.setString(3, city);
-        statement.setString(4, postalCode);
-        statement.setString(5, "España");
-        statement.addBatch();
-    }
-
-    private static void insertarRelacionesClienteDireccion(Connection connection) throws SQLException {
+    private static void relacionarClientesYDirecciones(Connection conexion) throws SQLException {
         String sql = "INSERT INTO cliente_direccion (id_cliente,id_direccion) VALUES (?,?)";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            for (long id = 1; id <= 2; id++) {
-                statement.setLong(1, id);
-                statement.setLong(2, id);
-                statement.addBatch();
-            }
-            statement.executeBatch();
-        }
+        Object[][] relaciones = {
+                {1, 1}, {1, 2},
+                {2, 3}, {2, 4},
+                {3, 5},
+                {4, 6},
+                {5, 7}, {5, 8}
+        };
+        ejecutarBatch(conexion, sql, relaciones);
     }
 
-    private static void insertarProductos(Connection connection) throws SQLException {
+    private static void insertarCategorias(Connection conexion) throws SQLException {
+        String sql = "INSERT INTO categoria VALUES (?,?,?)";
+        Object[][] filas = {
+                {1, "Componentes", "Procesadores, gráficas y memoria"},
+                {2, "Periféricos", "Ratones, teclados y auriculares"},
+                {3, "Monitores", "Pantallas para ordenador"},
+                {4, "Almacenamiento", "Unidades SSD y discos"},
+                {5, "Refrigeración y energía", "Fuentes y refrigeración"}
+        };
+        ejecutarBatch(conexion, sql, filas);
+    }
+
+    private static void insertarProductos(Connection conexion) throws SQLException {
         String sql = "INSERT INTO producto (id_producto,nombre,precio,descripcion,activo) "
                 + "VALUES (?,?,?,?,?)";
-        String[][] products = {
-                {"GeForce RTX 4070 Super", "699.99", "Tarjeta gráfica para gaming QHD"},
-                {"Ryzen 7 7800X3D", "399.99", "Procesador AM5 para gaming"},
-                {"B650 Gaming Plus WiFi", "189.99", "Placa base AM5 con soporte DDR5"},
-                {"Vengeance DDR5 32 GB", "119.99", "Kit de memoria 2x16 GB"},
-                {"Odyssey G5 27 pulgadas", "279.99", "Monitor QHD de alta frecuencia"},
-                {"DeathAdder V3", "79.99", "Ratón gaming ergonómico"}
+        Object[][] filas = {
+                {1, "GeForce RTX 4070 Super", 699.99, "Tarjeta gráfica QHD", true},
+                {2, "Radeon RX 7800 XT", 549.99, "Tarjeta gráfica gaming", true},
+                {3, "Ryzen 7 7800X3D", 399.99, "Procesador AM5", true},
+                {4, "Core i5-14600K", 329.99, "Procesador Intel", true},
+                {5, "Vengeance DDR5 32 GB", 119.99, "Kit de memoria 2x16 GB", true},
+                {6, "DeathAdder V3", 79.99, "Ratón gaming ergonómico", true},
+                {7, "G Pro X TKL", 149.99, "Teclado mecánico compacto", true},
+                {8, "Cloud III", 99.99, "Auriculares con micrófono", true},
+                {9, "Odyssey G5 27 pulgadas", 279.99, "Monitor QHD", true},
+                {10, "UltraGear 24 pulgadas", 189.99, "Monitor Full HD", true},
+                {11, "990 EVO 1 TB", 99.99, "SSD NVMe", true},
+                {12, "IronWolf 4 TB", 109.99, "Disco duro interno", true},
+                {13, "RM750e 750 W", 119.99, "Fuente modular 80 Plus Gold", true}
         };
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            for (int i = 0; i < products.length; i++) {
-                statement.setLong(1, i + 1);
-                statement.setString(2, products[i][0]);
-                statement.setBigDecimal(3, new BigDecimal(products[i][1]));
-                statement.setString(4, products[i][2]);
-                statement.setBoolean(5, true);
-                statement.addBatch();
-            }
-            statement.executeBatch();
-        }
+        ejecutarBatch(conexion, sql, filas);
     }
 
-    private static void insertarCategorias(Connection connection) throws SQLException {
-        String sql = "INSERT INTO categoria (id_categoria,nombre,descripcion) VALUES (?,?,?)";
-        String[][] categories = {
-                {"Tarjetas gráficas", "GPU para equipos de sobremesa"},
-                {"Procesadores", "CPU para equipos compatibles"},
-                {"Placas base", "Placas base y chipsets"},
-                {"Memoria RAM", "Módulos de memoria"},
-                {"Monitores", "Pantallas para ordenador"},
-                {"Periféricos", "Ratones, teclados y accesorios"}
-        };
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            for (int i = 0; i < categories.length; i++) {
-                statement.setLong(1, i + 1);
-                statement.setString(2, categories[i][0]);
-                statement.setString(3, categories[i][1]);
-                statement.addBatch();
-            }
-            statement.executeBatch();
-        }
-    }
-
-    private static void insertarRelacionesProductoCategoria(Connection connection) throws SQLException {
+    private static void relacionarProductosYCategorias(Connection conexion) throws SQLException {
         String sql = "INSERT INTO producto_categoria (id_producto,id_categoria) VALUES (?,?)";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            for (long id = 1; id <= 6; id++) {
-                statement.setLong(1, id);
-                statement.setLong(2, id);
-                statement.addBatch();
-            }
-            statement.executeBatch();
+        int[] idsCategoria = {1, 1, 1, 1, 1, 2, 2, 2, 3, 3, 4, 4, 5};
+        Object[][] relaciones = new Object[idsCategoria.length][2];
+
+        for (int indice = 0; indice < idsCategoria.length; indice++) {
+            relaciones[indice][0] = indice + 1;
+            relaciones[indice][1] = idsCategoria[indice];
         }
+
+        ejecutarBatch(conexion, sql, relaciones);
     }
 
-    private static void insertarInventario(Connection connection) throws SQLException {
+    private static void insertarInventario(Connection conexion) throws SQLException {
         String sql = "INSERT INTO inventario (id_inventario,id_producto,stock,stock_minimo) "
                 + "VALUES (?,?,?,?)";
-        int[] stocks = {7, 12, 8, 20, 6, 18};
-        int[] minimumStocks = {2, 3, 2, 5, 2, 4};
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            for (int i = 0; i < stocks.length; i++) {
-                statement.setLong(1, i + 1);
-                statement.setLong(2, i + 1);
-                statement.setInt(3, stocks[i]);
-                statement.setInt(4, minimumStocks[i]);
-                statement.addBatch();
-            }
-            statement.executeBatch();
+        int[] existencias = {24, 22, 23, 24, 23, 21, 26, 28, 29, 30, 29, 32, 33};
+        Object[][] filas = new Object[existencias.length][4];
+
+        for (int indice = 0; indice < existencias.length; indice++) {
+            int identificador = indice + 1;
+            filas[indice][0] = identificador;
+            filas[indice][1] = identificador;
+            filas[indice][2] = existencias[indice];
+            filas[indice][3] = 3;
         }
+
+        ejecutarBatch(conexion, sql, filas);
     }
 
-    private static void insertarDetallesPedido(Connection connection) throws SQLException {
-        String sql = "INSERT INTO detalle_pedido "
-                + "(id_detalle,id_pedido,id_producto,cantidadProducto,precio_unitario) "
-                + "VALUES (?,?,?,?,?)";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setLong(1, 1);
-            statement.setLong(2, 1);
-            statement.setLong(3, 1);
-            statement.setInt(4, 1);
-            statement.setBigDecimal(5, new BigDecimal("699.99"));
-            statement.addBatch();
 
-            statement.setLong(1, 2);
-            statement.setLong(2, 1);
-            statement.setLong(3, 4);
-            statement.setInt(4, 2);
-            statement.setBigDecimal(5, new BigDecimal("119.99"));
-            statement.addBatch();
 
-            statement.executeBatch();
-        }
-    }
-
-    private static void insertarPedidos(Connection connection) throws SQLException {
-        String sql = "INSERT INTO pedido (id_pedido,id_cliente,fecha,estado,total) "
-                + "VALUES (?,?,?,?,?)";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setLong(1, 1);
-            statement.setLong(2, 1);
-            statement.setTimestamp(3, convertirFechaHora("2026-11-01T12:00:00"));
-            statement.setString(4, "COMPLETADO");
-            statement.setBigDecimal(5, new BigDecimal("939.97"));
-            statement.executeUpdate();
-        }
-    }
-
-    private static void insertarMovimientosStock(Connection connection) throws SQLException {
+    private static void insertarMovimientosStock(Connection conexion) throws SQLException {
         String sql = "INSERT INTO movimientos_stock "
-                + "(id_movimiento,id_producto,tipo,cantidadCambiada,fecha) VALUES (?,?,?,?,?)";
-        String[] types = {"COMPRA", "VENTA", "COMPRA", "COMPRA", "COMPRA", "VENTA", "COMPRA", "COMPRA"};
-        int[] products = {1, 1, 2, 3, 4, 4, 5, 6};
-        int[] quantities = {8, 1, 12, 8, 22, 2, 6, 18};
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            for (int i = 0; i < types.length; i++) {
-                statement.setLong(1, i + 1);
-                statement.setInt(2, products[i]);
-                statement.setString(3, types[i]);
-                statement.setInt(4, quantities[i]);
-                statement.setTimestamp(5, convertirFechaHora(i == 1 || i == 5
-                        ? "2026-11-01T12:00:00" : "2026-10-20T09:00:00"));
-                statement.addBatch();
-            }
-            statement.executeBatch();
-        }
-    }
-
-    private static void insertarPagos(Connection connection) throws SQLException {
-        String sql = "INSERT INTO pago "
-                + "(id_pago,id_pedido,metodo_pago,estado,importe,fecha_pago) VALUES (?,?,?,?,?,?)";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setLong(1, 1);
-            statement.setLong(2, 1);
-            statement.setString(3, "TARJETA");
-            statement.setString(4, "COMPLETADO");
-            statement.setBigDecimal(5, new BigDecimal("939.97"));
-            statement.setTimestamp(6, convertirFechaHora("2026-11-01T12:00:00"));
-            statement.executeUpdate();
-        }
-    }
-
-    private static void reiniciarIdentificadores(Connection connection, boolean mysql) throws SQLException {
-        String[][] identities = {
-                {"cliente", "id_cliente", "3"}, {"direccion", "id_direccion", "3"},
-                {"producto", "id_producto", "7"}, {"categoria", "id_categoria", "7"},
-                {"inventario", "id_inventario", "7"},
-                {"detalle_pedido", "id_detalle", "3"},
-                {"pedido", "id_pedido", "2"}, {"movimientos_stock", "id_movimiento", "9"},
-                {"pago", "id_pago", "2"}
+                + "(id_movimiento,id_producto,tipo,cantidadCambiada,fecha) "
+                + "VALUES (?,?,?,?,CURRENT_TIMESTAMP)";
+        Object[][] filas = {
+                {1, 1, "COMPRA", 25}, {2, 1, "VENTA", 1},
+                {3, 5, "COMPRA", 25}, {4, 5, "VENTA", 2},
+                {5, 6, "AJUSTE", 22}, {6, 6, "VENTA", 1},
+                {7, 7, "COMPRA", 27}, {8, 7, "VENTA", 1},
+                {9, 11, "COMPRA", 31}, {10, 11, "VENTA", 2}
         };
-        try (Statement statement = connection.createStatement()) {
-            for (String[] identity : identities) {
-                String sql = mysql
-                        ? "ALTER TABLE " + identity[0] + " AUTO_INCREMENT = " + identity[2]
-                        : "ALTER TABLE " + identity[0] + " ALTER COLUMN " + identity[1]
-                                + " RESTART WITH " + identity[2];
-                statement.execute(sql);
+        ejecutarBatch(conexion, sql, filas);
+    }
+
+
+    //Ejecuta una inserción por lotes con los parámetros de cada fila
+    private static void ejecutarBatch(Connection conexion, String sql, Object[][] filas)
+            throws SQLException {
+        try (PreparedStatement sentencia = conexion.prepareStatement(sql)) {
+            for (Object[] fila : filas) {
+                for (int indiceParametro = 0; indiceParametro < fila.length; indiceParametro++) {
+                    sentencia.setObject(indiceParametro + 1, fila[indiceParametro]);
+                }
+                sentencia.addBatch();
             }
+            sentencia.executeBatch();
         }
     }
 
-    private static Timestamp convertirFechaHora(String value) {
-        return Timestamp.valueOf(LocalDateTime.parse(value));
+    private static void reiniciarIdentificadores(Connection conexion, boolean mysql)
+            throws SQLException {
+        String[][] columnas = {
+                {"cliente", "id_cliente", "6"},
+                {"direccion", "id_direccion", "9"},
+                {"categoria", "id_categoria", "6"},
+                {"producto", "id_producto", "14"},
+                {"inventario", "id_inventario", "14"},
+                {"pedido", "id_pedido", "3"},
+                {"detalle_pedido", "id_detalle", "6"},
+                {"movimientos_stock", "id_movimiento", "11"},
+                {"pago", "id_pago", "3"}
+        };
+
+        try (Statement sentencia = conexion.createStatement()) {
+            for (String[] columna : columnas) {
+                String sql;
+                if (mysql) {
+                    sql = "ALTER TABLE " + columna[0] + " AUTO_INCREMENT = " + columna[2];
+                } else {
+                    sql = "ALTER TABLE " + columna[0] + " ALTER COLUMN "
+                            + columna[1] + " RESTART WITH " + columna[2];
+                }
+                sentencia.execute(sql);
+            }
+        }
     }
 }

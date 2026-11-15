@@ -1,0 +1,65 @@
+16-11-2026 00:07:58.070 INFO  [main] proyecto.Main - -----------------------------------------------------------------------
+16-11-2026 00:07:58.095 INFO  [main] proyecto.Main - --------------------------------TECH STORE-----------------------------
+16-11-2026 00:07:58.095 INFO  [main] proyecto.Main - -----------------------------------------------------------------------
+16-11-2026 00:07:58.096 INFO  [main] proyecto.Main - PASO 1 - Creación de tablas y registros
+16-11-2026 00:07:58.103 INFO  [main] proyecto.connection.DatabaseInitializer - Conectando a MYSQL
+16-11-2026 00:07:58.790 INFO  [main] proyecto.database.DatabaseSchemaInitializer - BBDD MySQL 'unidad2' creada
+16-11-2026 00:07:59.266 INFO  [main] proyecto.database.DatabaseSchemaInitializer - Esquema de Tech Store creado
+16-11-2026 00:07:59.527 INFO  [main] proyecto.database.InitialDataLoader - Datos iniciales cargados: 5 categorías, 13 productos, 5 clientes y 2 pedidos
+16-11-2026 00:07:59.534 INFO  [main] proyecto.connection.DatabaseInitializer - Inicialización de MYSQL exitosa
+16-11-2026 00:08:01.108 INFO  [main] proyecto.Main - PASO 2 - Clientes y direcciones
+16-11-2026 00:08:01.113 INFO  [main] proyecto.Main - CLIENTES:
+16-11-2026 00:08:01.211 INFO  [main] proyecto.Main - 1. Alba Sánchez Ruiz (correo: alba@example.test)
+16-11-2026 00:08:01.213 INFO  [main] proyecto.Main -    Dirección: Calle Mayor 10, Madrid, 28013, España
+16-11-2026 00:08:01.213 INFO  [main] proyecto.Main -    Dirección: Av. del Puerto 25, Valencia, 46021, España
+16-11-2026 00:08:01.214 INFO  [main] proyecto.Main - 2. Marcos López Díaz (correo: marcos@example.test)
+16-11-2026 00:08:01.214 INFO  [main] proyecto.Main -    Dirección: Calle Estación 18, Sevilla, 41001, España
+16-11-2026 00:08:01.215 INFO  [main] proyecto.Main -    Dirección: Gran Vía 42, Bilbao, 48011, España
+16-11-2026 00:08:01.215 INFO  [main] proyecto.Main - 3. Lucía Martín Ortega (correo: lucia@example.test)
+16-11-2026 00:08:01.216 INFO  [main] proyecto.Main -    Dirección: Calle Colón 7, Zaragoza, 50001, España
+16-11-2026 00:08:01.216 INFO  [main] proyecto.Main - 4. Diego Navarro Gil (correo: diego@example.test)
+16-11-2026 00:08:01.216 INFO  [main] proyecto.Main -    Dirección: Rúa do Príncipe 15, Vigo, 36202, España
+16-11-2026 00:08:01.217 INFO  [main] proyecto.Main - 5. Paula Serrano Vidal (correo: paula@example.test)
+16-11-2026 00:08:01.217 INFO  [main] proyecto.Main -    Dirección: Paseo de Gracia 101, Barcelona, 08008, España
+16-11-2026 00:08:01.217 INFO  [main] proyecto.Main -    Dirección: Calle Larios 9, Málaga, 29005, España
+16-11-2026 00:08:02.718 INFO  [main] proyecto.Main - PASO 3 - Catálogo por categoría y stock disponible
+16-11-2026 00:08:02.719 INFO  [main] proyecto.Main - CATEGORÍAS Y PRODUCTOS:
+16-11-2026 00:08:02.744 INFO  [main] proyecto.Main - 1. Componentes
+16-11-2026 00:08:02.745 INFO  [main] proyecto.Main -    1. Core i5-14600K — 329.99 € — stock: 24
+16-11-2026 00:08:02.747 INFO  [main] proyecto.Main -    2. GeForce RTX 4070 Super — 699.99 € — stock: 24
+16-11-2026 00:08:02.749 INFO  [main] proyecto.Main -    3. Radeon RX 7800 XT — 549.99 € — stock: 22
+16-11-2026 00:08:02.750 INFO  [main] proyecto.Main -    4. Ryzen 7 7800X3D — 399.99 € — stock: 23
+16-11-2026 00:08:02.750 INFO  [main] proyecto.Main -    5. Vengeance DDR5 32 GB — 119.99 € — stock: 23
+16-11-2026 00:08:02.751 INFO  [main] proyecto.Main - 2. Periféricos
+16-11-2026 00:08:02.751 INFO  [main] proyecto.Main -    1. Cloud III — 99.99 € — stock: 28
+16-11-2026 00:08:02.752 INFO  [main] proyecto.Main -    2. DeathAdder V3 — 79.99 € — stock: 21
+16-11-2026 00:08:02.752 INFO  [main] proyecto.Main -    3. G Pro X TKL — 149.99 € — stock: 26
+16-11-2026 00:08:02.752 INFO  [main] proyecto.Main - 3. Monitores
+16-11-2026 00:08:02.753 INFO  [main] proyecto.Main -    1. Odyssey G5 27 pulgadas — 279.99 € — stock: 29
+16-11-2026 00:08:02.753 INFO  [main] proyecto.Main -    2. UltraGear 24 pulgadas — 189.99 € — stock: 30
+16-11-2026 00:08:02.753 INFO  [main] proyecto.Main - 4. Almacenamiento
+16-11-2026 00:08:02.754 INFO  [main] proyecto.Main -    1. 990 EVO 1 TB — 99.99 € — stock: 29
+16-11-2026 00:08:02.754 INFO  [main] proyecto.Main -    2. IronWolf 4 TB — 109.99 € — stock: 32
+16-11-2026 00:08:02.755 INFO  [main] proyecto.Main - 5. Refrigeración y energía
+16-11-2026 00:08:02.755 INFO  [main] proyecto.Main -    1. RM750e 750 W — 119.99 € — stock: 33
+16-11-2026 00:08:04.257 INFO  [main] proyecto.Main - PASO 4 - Historial de movimientos de stock registrados
+16-11-2026 00:08:04.258 INFO  [main] proyecto.Main - MOVIMIENTOS DE PRODUCTOS MODIFICADOS:
+16-11-2026 00:08:04.290 INFO  [main] proyecto.Main - 1. GeForce RTX 4070 Super — COMPRA — 16:11:2026 00:07:59
+16-11-2026 00:08:04.291 INFO  [main] proyecto.Main - 2. GeForce RTX 4070 Super — VENTA — 16:11:2026 00:07:59
+16-11-2026 00:08:04.291 INFO  [main] proyecto.Main - 3. Vengeance DDR5 32 GB — COMPRA — 16:11:2026 00:07:59
+16-11-2026 00:08:04.291 INFO  [main] proyecto.Main - 4. Vengeance DDR5 32 GB — VENTA — 16:11:2026 00:07:59
+16-11-2026 00:08:04.292 INFO  [main] proyecto.Main - 5. DeathAdder V3 — AJUSTE — 16:11:2026 00:07:59
+16-11-2026 00:08:04.292 INFO  [main] proyecto.Main - 6. DeathAdder V3 — VENTA — 16:11:2026 00:07:59
+16-11-2026 00:08:04.292 INFO  [main] proyecto.Main - 7. G Pro X TKL — COMPRA — 16:11:2026 00:07:59
+16-11-2026 00:08:04.293 INFO  [main] proyecto.Main - 8. G Pro X TKL — VENTA — 16:11:2026 00:07:59
+16-11-2026 00:08:04.293 INFO  [main] proyecto.Main - 9. 990 EVO 1 TB — COMPRA — 16:11:2026 00:07:59
+16-11-2026 00:08:04.294 INFO  [main] proyecto.Main - 10. 990 EVO 1 TB — VENTA — 16:11:2026 00:07:59
+16-11-2026 00:08:05.795 INFO  [main] proyecto.Main - PASO 5 - Crear tres pedidos y mostrar sus líneas y pagos
+16-11-2026 00:08:05.911 ERROR [main] proyecto.Main - No se pudo ejecutar la aplicación de Tech Store
+java.lang.NullPointerException: Cannot invoke "java.time.LocalDateTime.getYear()" because "dateTime" is null
+	at java.sql/java.sql.Timestamp.valueOf(Timestamp.java:499)
+	at proyecto.dao.PagoDAO.registrar(PagoDAO.java:26)
+	at proyecto.service.PedidoService.realizarPedido(PedidoService.java:118)
+	at proyecto.Main.crearPedidosDeEjemplo(Main.java:140)
+	at proyecto.Main.ejecutarSimulacion(Main.java:72)
+	at proyecto.Main.main(Main.java:50)

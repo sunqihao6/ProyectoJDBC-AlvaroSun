@@ -4,10 +4,32 @@
         <Console name="Consola" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{dd-MM-yyyy HH:mm:ss} %-5level %c - %msg%n"/>
         </Console>
+
+        <File name="ArchivoPorEjecucion"
+              fileName="logs/evidencias/ejecucion-${date:yyyy-MM-dd_HH-mm-ss-SSS}.log"
+              append="false">
+            <PatternLayout
+                    pattern="%d{dd-MM-yyyy HH:mm:ss.SSS} %-5level [%t] %c - %msg%n%throwable"/>
+        </File>
+
+        <RollingFile name="Archivo"
+                     fileName="logs/runtime/aplicacion.log"
+                     filePattern="logs/runtime/aplicacion-%d{yyyy-MM-dd}-%i.log.gz"
+                     append="true">
+            <PatternLayout
+                    pattern="%d{dd-MM-yyyy HH:mm:ss.SSS} %-5level [%t] %c - %msg%n%throwable"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="5 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
     </Appenders>
     <Loggers>
         <Root level="info">
             <AppenderRef ref="Consola"/>
+            <AppenderRef ref="ArchivoPorEjecucion"/>
+            <AppenderRef ref="Archivo"/>
         </Root>
     </Loggers>
 </Configuration>

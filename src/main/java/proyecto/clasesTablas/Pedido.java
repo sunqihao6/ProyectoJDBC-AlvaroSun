@@ -1,19 +1,16 @@
 package proyecto.clasesTablas;
 
-/** Representa un pedido realizado por un cliente. */
+import java.time.LocalDateTime;
+
 public class Pedido {
-    private Long idPedido;
-    private Long idCliente;
-    private java.time.LocalDateTime fecha;
+
+    private int idPedido;
+    private int idCliente;
+    private LocalDateTime fecha;
     private String estado;
-    private java.math.BigDecimal total;
+    private double total;
 
-    /** Constructor vacío para facilitar la creación y carga del objeto. */
-    public Pedido() {
-    }
-
-    /** Constructor con todos los campos. */
-    public Pedido(Long idPedido, Long idCliente, java.time.LocalDateTime fecha, String estado, java.math.BigDecimal total) {
+    public Pedido(int idPedido, int idCliente, LocalDateTime fecha, String estado, double total) {
         this.idPedido = idPedido;
         this.idCliente = idCliente;
         this.fecha = fecha;
@@ -21,27 +18,23 @@ public class Pedido {
         this.total = total;
     }
 
-    public Long getIdPedido() {
+    public int getIdPedido() {
         return idPedido;
     }
 
-    public void setIdPedido(Long idPedido) {
+    public void setIdPedido(int idPedido) {
         this.idPedido = idPedido;
     }
 
-    public Long getIdCliente() {
+    public int getIdCliente() {
         return idCliente;
     }
 
-    public void setIdCliente(Long idCliente) {
-        this.idCliente = idCliente;
-    }
-
-    public java.time.LocalDateTime getFecha() {
+    public LocalDateTime getFecha() {
         return fecha;
     }
 
-    public void setFecha(java.time.LocalDateTime fecha) {
+    public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
     }
 
@@ -53,11 +46,11 @@ public class Pedido {
         this.estado = estado;
     }
 
-    public java.math.BigDecimal getTotal() {
+    public double getTotal() {
         return total;
     }
 
-    public void setTotal(java.math.BigDecimal total) {
+    public void setTotal(double total) {
         this.total = total;
     }
 }

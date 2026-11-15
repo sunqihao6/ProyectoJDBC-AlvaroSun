@@ -1,0 +1,5 @@
+15-11-2026 22:15:54.937 INFO  [main] proyecto.Main - -----------------------------------------------------------------------
+15-11-2026 22:15:54.955 INFO  [main] proyecto.Main - --------------------------------TECH STORE-----------------------------
+15-11-2026 22:15:54.956 INFO  [main] proyecto.Main - -----------------------------------------------------------------------
+15-11-2026 22:15:54.957 INFO  [main] proyecto.Main - PASO 1 - Creación de tablas y registros
+15-11-2026 22:15:54.970 INFO  [main] proyecto.connection.DatabaseInitializer - Conectando a H2

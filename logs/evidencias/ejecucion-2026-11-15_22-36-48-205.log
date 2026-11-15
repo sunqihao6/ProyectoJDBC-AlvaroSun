@@ -1,0 +1,75 @@
+15-11-2026 22:36:48.342 INFO  [main] proyecto.Main - -----------------------------------------------------------------------
+15-11-2026 22:36:48.346 INFO  [main] proyecto.Main - --------------------------------TECH STORE-----------------------------
+15-11-2026 22:36:48.347 INFO  [main] proyecto.Main - -----------------------------------------------------------------------
+15-11-2026 22:36:48.347 INFO  [main] proyecto.Main - PASO 1 - Creación de tablas y registros
+15-11-2026 22:36:48.351 INFO  [main] proyecto.connection.DatabaseInitializer - Conectando a MYSQL
+15-11-2026 22:36:49.223 INFO  [main] proyecto.database.DatabaseSchemaInitializer - Catálogo MySQL 'unidad2' listo
+15-11-2026 22:36:49.677 INFO  [main] proyecto.database.DatabaseSchemaInitializer - Esquema de Tech Store creado
+15-11-2026 22:36:49.865 INFO  [main] proyecto.database.InitialDataLoader - Datos iniciales cargados: 5 categorías, 13 productos, 5 clientes y 2 pedidos
+15-11-2026 22:36:49.871 INFO  [main] proyecto.connection.DatabaseInitializer - Inicialización de MYSQL terminada
+15-11-2026 22:36:51.427 INFO  [main] proyecto.Main - PASO 2 - Clientes y direcciones
+15-11-2026 22:36:51.428 INFO  [main] proyecto.Main - CLIENTES:
+15-11-2026 22:36:51.554 INFO  [main] proyecto.Main - 1. Alba Sánchez Ruiz (correo: alba@example.test)
+15-11-2026 22:36:51.555 INFO  [main] proyecto.Main -    Dirección: Calle Mayor 10, Madrid, 28013, España
+15-11-2026 22:36:51.555 INFO  [main] proyecto.Main -    Dirección: Av. del Puerto 25, Valencia, 46021, España
+15-11-2026 22:36:51.555 INFO  [main] proyecto.Main - 2. Marcos López Díaz (correo: marcos@example.test)
+15-11-2026 22:36:51.556 INFO  [main] proyecto.Main -    Dirección: Calle Estación 18, Sevilla, 41001, España
+15-11-2026 22:36:51.556 INFO  [main] proyecto.Main -    Dirección: Gran Vía 42, Bilbao, 48011, España
+15-11-2026 22:36:51.556 INFO  [main] proyecto.Main - 3. Lucía Martín Ortega (correo: lucia@example.test)
+15-11-2026 22:36:51.556 INFO  [main] proyecto.Main -    Dirección: Calle Colón 7, Zaragoza, 50001, España
+15-11-2026 22:36:51.557 INFO  [main] proyecto.Main - 4. Diego Navarro Gil (correo: diego@example.test)
+15-11-2026 22:36:51.557 INFO  [main] proyecto.Main -    Dirección: Rúa do Príncipe 15, Vigo, 36202, España
+15-11-2026 22:36:51.557 INFO  [main] proyecto.Main - 5. Paula Serrano Vidal (correo: paula@example.test)
+15-11-2026 22:36:51.557 INFO  [main] proyecto.Main -    Dirección: Paseo de Gracia 101, Barcelona, 08008, España
+15-11-2026 22:36:51.558 INFO  [main] proyecto.Main -    Dirección: Calle Larios 9, Málaga, 29005, España
+15-11-2026 22:36:53.060 INFO  [main] proyecto.Main - PASO 3 - Catálogo por categoría y stock disponible
+15-11-2026 22:36:53.061 INFO  [main] proyecto.Main - CATEGORÍAS Y PRODUCTOS:
+15-11-2026 22:36:53.091 INFO  [main] proyecto.Main - 1. Componentes
+15-11-2026 22:36:53.092 INFO  [main] proyecto.Main -    1. Core i5-14600K — 329.99 € — stock: 24
+15-11-2026 22:36:53.093 INFO  [main] proyecto.Main -    2. GeForce RTX 4070 Super — 699.99 € — stock: 24
+15-11-2026 22:36:53.093 INFO  [main] proyecto.Main -    3. Radeon RX 7800 XT — 549.99 € — stock: 22
+15-11-2026 22:36:53.094 INFO  [main] proyecto.Main -    4. Ryzen 7 7800X3D — 399.99 € — stock: 23
+15-11-2026 22:36:53.094 INFO  [main] proyecto.Main -    5. Vengeance DDR5 32 GB — 119.99 € — stock: 23
+15-11-2026 22:36:53.095 INFO  [main] proyecto.Main - 2. Periféricos
+15-11-2026 22:36:53.095 INFO  [main] proyecto.Main -    1. Cloud III — 99.99 € — stock: 28
+15-11-2026 22:36:53.096 INFO  [main] proyecto.Main -    2. DeathAdder V3 — 79.99 € — stock: 21
+15-11-2026 22:36:53.096 INFO  [main] proyecto.Main -    3. G Pro X TKL — 149.99 € — stock: 26
+15-11-2026 22:36:53.096 INFO  [main] proyecto.Main - 3. Monitores
+15-11-2026 22:36:53.097 INFO  [main] proyecto.Main -    1. Odyssey G5 27 pulgadas — 279.99 € — stock: 29
+15-11-2026 22:36:53.097 INFO  [main] proyecto.Main -    2. UltraGear 24 pulgadas — 189.99 € — stock: 30
+15-11-2026 22:36:53.098 INFO  [main] proyecto.Main - 4. Almacenamiento
+15-11-2026 22:36:53.098 INFO  [main] proyecto.Main -    1. 990 EVO 1 TB — 99.99 € — stock: 29
+15-11-2026 22:36:53.098 INFO  [main] proyecto.Main -    2. IronWolf 4 TB — 109.99 € — stock: 32
+15-11-2026 22:36:53.099 INFO  [main] proyecto.Main - 5. Refrigeración y energía
+15-11-2026 22:36:53.099 INFO  [main] proyecto.Main -    1. RM750e 750 W — 119.99 € — stock: 33
+15-11-2026 22:36:54.601 INFO  [main] proyecto.Main - PASO 4 - Historial de movimientos de stock registrados
+15-11-2026 22:36:54.602 INFO  [main] proyecto.Main - MOVIMIENTOS DE PRODUCTOS MODIFICADOS:
+15-11-2026 22:36:54.631 INFO  [main] proyecto.Main - 1. GeForce RTX 4070 Super — COMPRA — 15:11:2026 22:36:49
+15-11-2026 22:36:54.632 INFO  [main] proyecto.Main - 2. GeForce RTX 4070 Super — VENTA — 15:11:2026 22:36:49
+15-11-2026 22:36:54.632 INFO  [main] proyecto.Main - 3. Vengeance DDR5 32 GB — COMPRA — 15:11:2026 22:36:49
+15-11-2026 22:36:54.632 INFO  [main] proyecto.Main - 4. Vengeance DDR5 32 GB — VENTA — 15:11:2026 22:36:49
+15-11-2026 22:36:54.633 INFO  [main] proyecto.Main - 5. DeathAdder V3 — AJUSTE — 15:11:2026 22:36:49
+15-11-2026 22:36:54.633 INFO  [main] proyecto.Main - 6. DeathAdder V3 — VENTA — 15:11:2026 22:36:49
+15-11-2026 22:36:54.633 INFO  [main] proyecto.Main - 7. G Pro X TKL — COMPRA — 15:11:2026 22:36:49
+15-11-2026 22:36:54.633 INFO  [main] proyecto.Main - 8. G Pro X TKL — VENTA — 15:11:2026 22:36:49
+15-11-2026 22:36:54.634 INFO  [main] proyecto.Main - 9. 990 EVO 1 TB — COMPRA — 15:11:2026 22:36:49
+15-11-2026 22:36:54.634 INFO  [main] proyecto.Main - 10. 990 EVO 1 TB — VENTA — 15:11:2026 22:36:49
+15-11-2026 22:36:56.135 INFO  [main] proyecto.Main - PASO 5 - Crear tres pedidos y mostrar sus líneas y pagos
+15-11-2026 22:36:56.266 INFO  [main] proyecto.Main - 1. Pedido — cliente: Alba — correo: alba@example.test — dirección: Calle Mayor 10, Madrid, 28013
+15-11-2026 22:36:56.266 INFO  [main] proyecto.Main -    Productos:
+15-11-2026 22:36:56.267 INFO  [main] proyecto.Main -    - Radeon RX 7800 XT | precio/unidad: 549.99 € | cantidad: 1
+15-11-2026 22:36:56.267 INFO  [main] proyecto.Main -    - Ryzen 7 7800X3D | precio/unidad: 399.99 € | cantidad: 1
+15-11-2026 22:36:56.267 INFO  [main] proyecto.Main -    Precio total: 949.98 €
+15-11-2026 22:36:56.267 INFO  [main] proyecto.Main -    Pago: TARJETA / PENDIENTE / 949.98 €
+15-11-2026 22:36:56.312 INFO  [main] proyecto.Main - 2. Pedido — cliente: Marcos — correo: marcos@example.test — dirección: Calle Estación 18, Sevilla, 41001
+15-11-2026 22:36:56.313 INFO  [main] proyecto.Main -    Productos:
+15-11-2026 22:36:56.313 INFO  [main] proyecto.Main -    - Cloud III | precio/unidad: 99.99 € | cantidad: 1
+15-11-2026 22:36:56.313 INFO  [main] proyecto.Main -    - Odyssey G5 27 pulgadas | precio/unidad: 279.99 € | cantidad: 1
+15-11-2026 22:36:56.314 INFO  [main] proyecto.Main -    Precio total: 379.98 €
+15-11-2026 22:36:56.314 INFO  [main] proyecto.Main -    Pago: EFECTIVO / PENDIENTE / 379.98 €
+15-11-2026 22:36:56.369 INFO  [main] proyecto.Main - 3. Pedido — cliente: Diego — correo: diego@example.test — dirección: Rúa do Príncipe 15, Vigo, 36202
+15-11-2026 22:36:56.370 INFO  [main] proyecto.Main -    Productos:
+15-11-2026 22:36:56.371 INFO  [main] proyecto.Main -    - UltraGear 24 pulgadas | precio/unidad: 189.99 € | cantidad: 1
+15-11-2026 22:36:56.371 INFO  [main] proyecto.Main -    - RM750e 750 W | precio/unidad: 119.99 € | cantidad: 1
+15-11-2026 22:36:56.371 INFO  [main] proyecto.Main -    Precio total: 309.98 €
+15-11-2026 22:36:56.372 INFO  [main] proyecto.Main -    Pago: TARJETA / PENDIENTE / 309.98 €

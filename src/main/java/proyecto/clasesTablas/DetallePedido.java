@@ -1,19 +1,14 @@
 package proyecto.clasesTablas;
 
-/** Representa un producto, cantidad y precio unitario dentro de un pedido. */
 public class DetallePedido {
-    private Long idDetalle;
-    private Long idPedido;
-    private Long idProducto;
-    private Integer cantidadProducto;
-    private java.math.BigDecimal precioUnitario;
 
-    /** Constructor vacío para facilitar la creación y carga del objeto. */
-    public DetallePedido() {
-    }
-
-    /** Constructor con todos los campos. */
-    public DetallePedido(Long idDetalle, Long idPedido, Long idProducto, Integer cantidadProducto, java.math.BigDecimal precioUnitario) {
+    private int idDetalle;
+    private int idPedido;
+    private int idProducto;
+    private int cantidadProducto;
+    private double precioUnitario;
+    public DetallePedido(int idDetalle, int idPedido, int idProducto,
+                         int cantidadProducto, double precioUnitario) {
         this.idDetalle = idDetalle;
         this.idPedido = idPedido;
         this.idProducto = idProducto;
@@ -21,43 +16,31 @@ public class DetallePedido {
         this.precioUnitario = precioUnitario;
     }
 
-    public Long getIdDetalle() {
-        return idDetalle;
-    }
-
-    public void setIdDetalle(Long idDetalle) {
+    public void setIdDetalle(int idDetalle) {
         this.idDetalle = idDetalle;
     }
 
-    public Long getIdPedido() {
+    public int getIdPedido() {
         return idPedido;
     }
 
-    public void setIdPedido(Long idPedido) {
+    public void setIdPedido(int idPedido) {
         this.idPedido = idPedido;
     }
 
-    public Long getIdProducto() {
+    public int getIdProducto() {
         return idProducto;
     }
 
-    public void setIdProducto(Long idProducto) {
-        this.idProducto = idProducto;
-    }
-
-    public Integer getCantidadProducto() {
+    public int getCantidadProducto() {
         return cantidadProducto;
     }
 
-    public void setCantidadProducto(Integer cantidadProducto) {
-        this.cantidadProducto = cantidadProducto;
-    }
-
-    public java.math.BigDecimal getPrecioUnitario() {
+    public double getPrecioUnitario() {
         return precioUnitario;
     }
 
-    public void setPrecioUnitario(java.math.BigDecimal precioUnitario) {
+    public void setPrecioUnitario(double precioUnitario) {
         this.precioUnitario = precioUnitario;
     }
 }

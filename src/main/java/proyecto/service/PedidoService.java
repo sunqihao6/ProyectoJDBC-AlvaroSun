@@ -14,7 +14,6 @@ import proyecto.dao.PagoDAO;
 import proyecto.dao.PedidoDAO;
 import proyecto.dao.ProductoDAO;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -22,7 +21,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/** Coordina pedidos, líneas, inventario, movimientos y pago en una transacción. */
 public class PedidoService {
     private final Connection conexion;
     private final ClienteDAO clienteDAO;
@@ -44,44 +42,58 @@ public class PedidoService {
         pagoDAO = new PagoDAO(conexion);
     }
 
-    /** Crea un pedido completo y deshace todos los cambios si falla una operación. */
-    public Pedido realizarPedido(long idCliente, List<DetallePedido> lineas, String metodoPago)
+    public Pedido realizarPedido(int idCliente, List<DetallePedido> lineas, String metodoPago)
             throws SQLException {
+        return realizarPedido(idCliente, lineas, metodoPago, "PENDIENTE");
+    }
+
+
+    public Pedido realizarPedido(int idCliente, List<DetallePedido> lineas, String metodoPago,
+                                 String estadoPedido) throws SQLException {
         validarSolicitud(lineas, metodoPago);
+        if (!"PENDIENTE".equals(estadoPedido)
+                && !"CANCELADO".equals(estadoPedido) && !"PAGADO".equals(estadoPedido)) {
+            throw new IllegalArgumentException("El pedido debe quedar PENDIENTE, CANCELADO o PAGADO");
+        }
+
         boolean autoConfirmacionAnterior = conexion.getAutoCommit();
         conexion.setAutoCommit(false);
+
         try {
             if (clienteDAO.buscarPorId(idCliente) == null) {
                 throw new IllegalArgumentException("No existe el cliente " + idCliente);
             }
 
             // Comprobar productos y existencias y calcular el total desde precios del catálogo.
-            BigDecimal total = BigDecimal.ZERO;
-            Set<Long> productosIncluidos = new HashSet<>();
+            double total = 0.0;
+            Set<Integer> productosIncluidos = new HashSet<>();
             for (DetallePedido linea : lineas) {
-                if (linea.getIdProducto() == null || linea.getCantidadProducto() == null
-                        || linea.getCantidadProducto() <= 0) {
-                    throw new IllegalArgumentException("Cada línea necesita producto y cantidad positiva");
+                if (linea.getIdProducto() <= 0 || linea.getCantidadProducto() <= 0) {
+                    throw new IllegalArgumentException(
+                            "Cada línea necesita producto y cantidad positiva");
                 }
+
                 if (!productosIncluidos.add(linea.getIdProducto())) {
-                    throw new IllegalArgumentException("No repitas un producto; suma sus cantidades en una línea");
+                    throw new IllegalArgumentException(
+                            "No repitas un producto; suma sus cantidades en una línea");
                 }
 
                 Producto producto = productoDAO.buscarPorId(linea.getIdProducto());
                 if (producto == null || !producto.isActivo()) {
                     throw new IllegalArgumentException("El producto no existe o no está activo");
                 }
+
                 Inventario inventario = inventarioDAO.buscarPorProducto(linea.getIdProducto());
                 if (inventario == null || inventario.getStock() < linea.getCantidadProducto()) {
-                    throw new IllegalStateException("Stock insuficiente para: " + producto.getNombre());
+                    throw new IllegalStateException(
+                            "Stock insuficiente para: " + producto.getNombre());
                 }
 
                 linea.setPrecioUnitario(producto.getPrecio());
-                total = total.add(producto.getPrecio()
-                        .multiply(BigDecimal.valueOf(linea.getCantidadProducto())));
+                total += producto.getPrecio() * linea.getCantidadProducto();
             }
 
-            Pedido pedido = new Pedido(null, idCliente, LocalDateTime.now(), "COMPLETADO", total);
+            Pedido pedido = new Pedido(0, idCliente, LocalDateTime.now(), estadoPedido, total);
             pedidoDAO.insertar(pedido);
 
             // Guardar las líneas, descontar existencias y registrar cada salida.
@@ -92,12 +104,18 @@ public class PedidoService {
                 int stockActual = inventarioDAO.buscarPorProducto(linea.getIdProducto()).getStock();
                 inventarioDAO.actualizarStock(linea.getIdProducto(),
                         stockActual - linea.getCantidadProducto());
-                movimientoDAO.registrar(new MovimientoStock(null, linea.getIdProducto(), "VENTA",
+                movimientoDAO.registrar(new MovimientoStock(0, linea.getIdProducto(), "VENTA",
                         linea.getCantidadProducto(), LocalDateTime.now()));
             }
 
-            pagoDAO.registrar(new Pago(null, pedido.getIdPedido(), metodoPago, "COMPLETADO",
-                    total, LocalDateTime.now()));
+            Pago pagoPendiente = new Pago(
+                    0,
+                    pedido.getIdPedido(),
+                    metodoPago,
+                    "PENDIENTE",
+                    total,
+                    null);
+            pagoDAO.registrar(pagoPendiente);
             conexion.commit();
             return pedido;
         } catch (SQLException | RuntimeException error) {
@@ -108,17 +126,13 @@ public class PedidoService {
         }
     }
 
-    public Pedido consultarPedido(long idPedido) throws SQLException {
-        return pedidoDAO.buscarPorId(idPedido);
-    }
-
-    public List<DetallePedido> consultarLineas(long idPedido) throws SQLException {
-        return detalleDAO.listarPorPedido(idPedido);
-    }
-
+    /**
+     * Comprueba los datos básicos antes de abrir la transacción.
+     */
     private void validarSolicitud(List<DetallePedido> lineas, String metodoPago) {
-        if (lineas == null || lineas.isEmpty()) {
-            throw new IllegalArgumentException("El pedido debe incluir al menos un producto");
+        if (lineas == null || lineas.size() < 1) {
+            throw new IllegalArgumentException(
+                    "Cada pedido debe incluir al menos 1 producto");
         }
         if (!"EFECTIVO".equals(metodoPago) && !"TARJETA".equals(metodoPago)) {
             throw new IllegalArgumentException("El método de pago debe ser EFECTIVO o TARJETA");

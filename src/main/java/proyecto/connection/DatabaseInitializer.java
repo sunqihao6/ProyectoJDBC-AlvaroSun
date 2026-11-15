@@ -11,15 +11,12 @@ import java.sql.SQLException;
 import java.util.Locale;
 import java.util.Properties;
 
-/** Coordina la conexión, la creación de tablas y la carga inicial de datos. */
+//Crea tablas y carga datos iniciales
 public final class DatabaseInitializer {
     private static final Logger logger = LogManager.getLogger(DatabaseInitializer.class);
 
-    private DatabaseInitializer() {
-    }
-
     public static void initialize(Properties properties) throws SQLException {
-        // PASO 1: obtener el motor seleccionado en application.properties.
+        // Se obtiene el motor seleccionado
         String engine = properties.getProperty("database.engine", "H2")
                 .trim().toUpperCase(Locale.ROOT);
         boolean mysql = "MYSQL".equals(engine);
@@ -28,29 +25,27 @@ public final class DatabaseInitializer {
             throw new IllegalArgumentException("Motor no admitido: " + engine);
         }
 
-        // PASO 2: abrir una conexión con el motor elegido.
+        // Se abre una conexion con el motor seleccionado
         try (Connection connection = openConnection(properties, engine)) {
             String databaseName = "unidad2";
 
-            // PASO 3: crear/seleccionar la base MySQL o crear el archivo H2 si hace falta.
+            // creaa la BBDD en MySQL
             if (mysql) {
                 DatabaseSchemaInitializer.crearBaseDatosMySQL(connection, databaseName);
             }
 
-            // PASO 4: crear las tablas solo si todavía no existen.
+            // crear las tablas
             DatabaseSchemaInitializer.crearTablas(connection, mysql);
 
-            // PASO 5: restaurar el estado inicial antes de cada simulación.
+            // cargar datos iniciales
             InitialDataLoader.restaurarYCargar(connection, mysql);
         }
-
-        // PASO 6: try-with-resources cierra la conexión al terminar.
-        logger.info("Inicialización de {} terminada", engine);
+        logger.info("Inicialización de {} exitosa", engine);
     }
 
     private static Connection openConnection(Properties properties, String engine)
             throws SQLException {
-        // MySQL conecta primero al servidor sin seleccionar una base de datos.
+
         String urlProperty = engine.equals("MYSQL") ? "mysql.serverUrl" : "h2.url";
         String url = recuperarURL(properties, urlProperty);
 

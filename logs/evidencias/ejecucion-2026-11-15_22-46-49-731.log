@@ -1,0 +1,13 @@
+15-11-2026 22:46:49.877 INFO  [main] proyecto.Main - -----------------------------------------------------------------------
+15-11-2026 22:46:49.882 INFO  [main] proyecto.Main - --------------------------------TECH STORE-----------------------------
+15-11-2026 22:46:49.883 INFO  [main] proyecto.Main - -----------------------------------------------------------------------
+15-11-2026 22:46:49.883 INFO  [main] proyecto.Main - PASO 1 - Creación de tablas y registros
+15-11-2026 22:46:49.888 INFO  [main] proyecto.connection.DatabaseInitializer - Conectando a MYSQL
+15-11-2026 22:46:50.551 INFO  [main] proyecto.database.DatabaseSchemaInitializer - Catálogo MySQL 'unidad2' listo
+15-11-2026 22:46:50.996 INFO  [main] proyecto.database.DatabaseSchemaInitializer - Esquema de Tech Store creado
+15-11-2026 22:46:51.257 INFO  [main] proyecto.database.InitialDataLoader - Datos iniciales cargados: 5 categorías, 13 productos, 5 clientes y 2 pedidos
+15-11-2026 22:46:51.262 INFO  [main] proyecto.connection.DatabaseInitializer - Inicialización de MYSQL terminada
+15-11-2026 22:46:52.765 ERROR [main] proyecto.Main - No se pudo ejecutar la aplicación de Tech Store
+java.lang.IllegalArgumentException: Falta la URL de conexión: mysql.url
+	at proyecto.Main.abrirConexion(Main.java:199)
+	at proyecto.Main.main(Main.java:47)

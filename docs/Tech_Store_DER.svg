@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1600" viewBox="0 0 1920 1600" role="img" aria-labelledby="title desc">
+<title id="title">Diagrama relacional de Tech Store con atributos</title>
+<desc id="desc">Las once tablas del esquema, sus atributos, claves y cardinalidades.</desc>
+<defs>
+  <style>
+    text{font-family:Segoe UI,Arial,sans-serif;fill:#172033}.title{font-size:32px;font-weight:700}.subtitle{font-size:16px;fill:#526079}.table{fill:#fff;stroke:#b8c6d9;stroke-width:2;rx:12}.head{fill:#173b68;rx:10}.headText{font-size:17px;font-weight:700;fill:#fff;letter-spacing:.5px}.field{font-size:14px}.key{font-weight:700;fill:#285b93}.edge{fill:none;stroke:#55718f;stroke-width:2.5}.edgeLabel{font-size:14px;font-weight:700;fill:#244e78;paint-order:stroke;stroke:#f4f7fb;stroke-width:6px;stroke-linejoin:round}.note{font-size:13px;fill:#526079}
+  </style>
+</defs>
+<rect width="1920" height="1600" fill="#f4f7fb"/>
+<text x="60" y="58" class="title">Tech Store · Diagrama relacional</text>
+<text x="60" y="88" class="subtitle">Tablas, atributos y cardinalidades del esquema</text>
+
+<!-- Relaciones 1:N y 1:1 -->
+<g class="edge">
+  <path d="M430 300 H465 V1270 H500"/>
+  <path d="M430 250 H465 V425 H500"/>
+  <path d="M430 735 H465 V485 H500"/>
+  <path d="M860 260 H880 V915 H860"/>
+  <path d="M980 280 H900 V925 H860"/>
+  <path d="M1340 240 H1490"/>
+  <path d="M1340 300 H1430 V670 H1490"/>
+  <path d="M1160 360 V1160"/>
+  <path d="M860 1270 H980"/>
+  <path d="M680 1160 V1090 H1670 V1160"/>
+</g>
+<!-- Relaciones N:M conceptuales, implementadas mediante las tablas puente -->
+<g class="edge" stroke-dasharray="8 7">
+  <path d="M860 220 H980"/>
+  <path d="M250 350 V650"/>
+</g>
+<g class="edgeLabel">
+  <text x="445" y="800">1:N</text>
+  <text x="445" y="345">1:N</text>
+  <text x="445" y="600">1:N</text>
+  <text x="695" y="590">1:N</text>
+  <text x="885" y="600">1:N</text>
+  <text x="1400" y="228">1:1</text>
+  <text x="1440" y="505">1:N</text>
+  <text x="1175" y="760">1:N</text>
+  <text x="900" y="1257">1:N</text>
+  <text x="1090" y="1080">1:1</text>
+  <text x="885" y="205">N:M</text>
+  <text x="260" y="515">N:M</text>
+</g>
+
+<!-- Entidades y atributos -->
+<g transform="translate(70 140)"><rect class="table" width="360" height="220"/><rect class="head" width="360" height="40"/><text x="16" y="27" class="headText">CLIENTE</text>
+<text x="16" y="68" class="field key">PK  id_cliente : INT</text><text x="16" y="96" class="field">nombre : VARCHAR(80)</text><text x="16" y="124" class="field">apellidos : VARCHAR(120)</text><text x="16" y="152" class="field key">UK  email : VARCHAR(180)</text><text x="16" y="180" class="field">telefono : VARCHAR(30)</text></g>
+
+<g transform="translate(70 650)"><rect class="table" width="360" height="220"/><rect class="head" width="360" height="40"/><text x="16" y="27" class="headText">DIRECCION</text>
+<text x="16" y="68" class="field key">PK  id_direccion : INT</text><text x="16" y="96" class="field">calle : VARCHAR(180)</text><text x="16" y="124" class="field">ciudad : VARCHAR(100)</text><text x="16" y="152" class="field">codigo_postal : VARCHAR(15)</text><text x="16" y="180" class="field">pais : VARCHAR(80)</text></g>
+
+<g transform="translate(500 390)"><rect class="table" width="360" height="130"/><rect class="head" width="360" height="40"/><text x="16" y="27" class="headText">CLIENTE_DIRECCION</text>
+<text x="16" y="76" class="field key">PK, FK  id_cliente : INT</text><text x="16" y="106" class="field key">PK, FK  id_direccion : INT</text></g>
+
+<g transform="translate(500 140)"><rect class="table" width="360" height="180"/><rect class="head" width="360" height="40"/><text x="16" y="27" class="headText">CATEGORIA</text>
+<text x="16" y="72" class="field key">PK  id_categoria : INT</text><text x="16" y="102" class="field key">UK  nombre : VARCHAR(80)</text><text x="16" y="132" class="field">descripcion : VARCHAR(255)</text></g>
+
+<g transform="translate(500 850)"><rect class="table" width="360" height="130"/><rect class="head" width="360" height="40"/><text x="16" y="27" class="headText">PRODUCTO_CATEGORIA</text>
+<text x="16" y="76" class="field key">PK, FK  id_producto : INT</text><text x="16" y="106" class="field key">PK, FK  id_categoria : INT</text></g>
+
+<g transform="translate(980 140)"><rect class="table" width="360" height="220"/><rect class="head" width="360" height="40"/><text x="16" y="27" class="headText">PRODUCTO</text>
+<text x="16" y="68" class="field key">PK  id_producto : INT</text><text x="16" y="96" class="field">nombre : VARCHAR(160)</text><text x="16" y="124" class="field">precio : DECIMAL(10,2)</text><text x="16" y="152" class="field">descripcion : TEXT (MySQL) / CLOB (H2)</text><text x="16" y="180" class="field">activo : BOOLEAN</text></g>
+
+<g transform="translate(1490 140)"><rect class="table" width="360" height="220"/><rect class="head" width="360" height="40"/><text x="16" y="27" class="headText">INVENTARIO</text>
+<text x="16" y="68" class="field key">PK  id_inventario : INT</text><text x="16" y="96" class="field key">FK, UK  id_producto : INT</text><text x="16" y="124" class="field">stock : INT</text><text x="16" y="152" class="field">stock_minimo : INT</text><text x="16" y="180" class="field">actualizado_en : TIMESTAMP</text></g>
+
+<g transform="translate(1490 560)"><rect class="table" width="360" height="220"/><rect class="head" width="360" height="40"/><text x="16" y="27" class="headText">MOVIMIENTOS_STOCK</text>
+<text x="16" y="68" class="field key">PK  id_movimiento : INT</text><text x="16" y="96" class="field key">FK  id_producto : INT</text><text x="16" y="124" class="field">tipo : VARCHAR(20)</text><text x="16" y="152" class="field">cantidadCambiada : INT</text><text x="16" y="180" class="field">fecha : TIMESTAMP</text></g>
+
+<g transform="translate(500 1160)"><rect class="table" width="360" height="220"/><rect class="head" width="360" height="40"/><text x="16" y="27" class="headText">PEDIDO</text>
+<text x="16" y="68" class="field key">PK  id_pedido : INT</text><text x="16" y="96" class="field key">FK  id_cliente : INT</text><text x="16" y="124" class="field">fecha : TIMESTAMP</text><text x="16" y="152" class="field">estado : VARCHAR(20)</text><text x="16" y="180" class="field">total : DECIMAL(12,2)</text></g>
+
+<g transform="translate(980 1160)"><rect class="table" width="360" height="220"/><rect class="head" width="360" height="40"/><text x="16" y="27" class="headText">DETALLE_PEDIDO</text>
+<text x="16" y="68" class="field key">PK  id_detalle : INT</text><text x="16" y="96" class="field key">FK  id_pedido : INT</text><text x="16" y="124" class="field key">FK  id_producto : INT</text><text x="16" y="152" class="field">cantidadProducto : INT</text><text x="16" y="180" class="field">precio_unitario : DECIMAL(10,2)</text><text x="16" y="205" class="note">UNIQUE (id_pedido, id_producto)</text></g>
+
+<g transform="translate(1490 1160)"><rect class="table" width="360" height="250"/><rect class="head" width="360" height="40"/><text x="16" y="27" class="headText">PAGO</text>
+<text x="16" y="68" class="field key">PK  id_pago : INT</text><text x="16" y="96" class="field key">FK, UK  id_pedido : INT</text><text x="16" y="124" class="field">metodo_pago : VARCHAR(30)</text><text x="16" y="152" class="field">estado : VARCHAR(20)</text><text x="16" y="180" class="field">importe : DECIMAL(12,2)</text><text x="16" y="208" class="field">fecha_pago : TIMESTAMP (NULL)</text></g>
+
+<text x="70" y="1480" class="note">PK: clave primaria · FK: clave foránea · UK: valor único. Las relaciones N:M se implementan mediante las tablas puente indicadas.</text>
+<text x="70" y="1508" class="note">En PRODUCTO_CATEGORIA, las dos claves forman una clave primaria compuesta; INVENTARIO y PAGO tienen FK única.</text>
+</svg>

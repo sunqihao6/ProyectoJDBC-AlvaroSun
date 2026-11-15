@@ -1,0 +1,10 @@
+15-11-2026 22:47:20.233 INFO  [main] proyecto.Main - -----------------------------------------------------------------------
+15-11-2026 22:47:20.239 INFO  [main] proyecto.Main - --------------------------------TECH STORE-----------------------------
+15-11-2026 22:47:20.239 INFO  [main] proyecto.Main - -----------------------------------------------------------------------
+15-11-2026 22:47:20.240 INFO  [main] proyecto.Main - PASO 1 - Creación de tablas y registros
+15-11-2026 22:47:20.242 ERROR [main] proyecto.Main - No se pudo ejecutar la aplicación de Tech Store
+java.lang.IllegalArgumentException: Falta la propiedad obligatoria: mysql.serverUrl
+	at proyecto.connection.DatabaseInitializer.recuperarURL(DatabaseInitializer.java:65)
+	at proyecto.connection.DatabaseInitializer.openConnection(DatabaseInitializer.java:52)
+	at proyecto.connection.DatabaseInitializer.initialize(DatabaseInitializer.java:29)
+	at proyecto.Main.main(Main.java:44)

@@ -1,0 +1,12 @@
+15-11-2026 17:09:45.328 INFO  [main] proyecto.connection.DatabaseInitializer - Conectando a MYSQL
+15-11-2026 17:09:45.988 INFO  [main] proyecto.database.DatabaseSchemaInitializer - Catálogo MySQL 'unidad2' listo
+15-11-2026 17:09:46.302 INFO  [main] proyecto.database.DatabaseSchemaInitializer - Esquema de Tech Store recreado desde cero
+15-11-2026 17:09:46.679 INFO  [main] proyecto.database.InitialDataLoader - Datos restaurados al estado inicial de la simulación
+15-11-2026 17:09:46.684 INFO  [main] proyecto.connection.DatabaseInitializer - Inicialización de MYSQL terminada
+15-11-2026 17:09:46.791 INFO  [main] proyecto.Main - Pedido de ejemplo creado: id=11, total=79.99 €
+15-11-2026 17:09:46.796 INFO  [main] proyecto.Main - Línea del pedido: producto=6, cantidad=1, precio unitario=79.99 €
+15-11-2026 17:09:46.801 INFO  [main] proyecto.Main - Más vendido: 2 unidades de Vengeance DDR5 32 GB (ingresos: 239.98 €)
+15-11-2026 17:09:46.803 INFO  [main] proyecto.Main - Más vendido: 2 unidades de DeathAdder V3 (ingresos: 159.98 €)
+15-11-2026 17:09:46.803 INFO  [main] proyecto.Main - Más vendido: 1 unidades de GeForce RTX 4070 Super (ingresos: 699.99 €)
+15-11-2026 17:09:46.803 INFO  [main] proyecto.Main - Más vendido: 1 unidades de Ryzen 7 7800X3D (ingresos: 399.99 €)
+15-11-2026 17:09:46.803 INFO  [main] proyecto.Main - Más vendido: 1 unidades de B650 Gaming Plus WiFi (ingresos: 189.99 €)

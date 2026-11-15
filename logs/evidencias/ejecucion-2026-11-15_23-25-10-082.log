@@ -1,0 +1,64 @@
+15-11-2026 23:25:10.226 INFO  [main] proyecto.Main - -----------------------------------------------------------------------
+15-11-2026 23:25:10.231 INFO  [main] proyecto.Main - --------------------------------TECH STORE-----------------------------
+15-11-2026 23:25:10.231 INFO  [main] proyecto.Main - -----------------------------------------------------------------------
+15-11-2026 23:25:10.231 INFO  [main] proyecto.Main - PASO 1 - Creación de tablas y registros
+15-11-2026 23:25:10.235 INFO  [main] proyecto.connection.DatabaseInitializer - Conectando a MYSQL
+15-11-2026 23:25:10.873 INFO  [main] proyecto.database.DatabaseSchemaInitializer - BBDD MySQL 'unidad2' creada
+15-11-2026 23:25:11.314 INFO  [main] proyecto.database.DatabaseSchemaInitializer - Esquema de Tech Store creado
+15-11-2026 23:25:11.526 INFO  [main] proyecto.database.InitialDataLoader - Datos iniciales cargados: 5 categorías, 13 productos, 5 clientes y 2 pedidos
+15-11-2026 23:25:11.531 INFO  [main] proyecto.connection.DatabaseInitializer - Inicialización de MYSQL exitosa
+15-11-2026 23:25:13.099 INFO  [main] proyecto.Main - PASO 2 - Clientes y direcciones
+15-11-2026 23:25:13.100 INFO  [main] proyecto.Main - CLIENTES:
+15-11-2026 23:25:13.206 INFO  [main] proyecto.Main - 1. Alba Sánchez Ruiz (correo: alba@example.test)
+15-11-2026 23:25:13.207 INFO  [main] proyecto.Main -    Dirección: Calle Mayor 10, Madrid, 28013, España
+15-11-2026 23:25:13.207 INFO  [main] proyecto.Main -    Dirección: Av. del Puerto 25, Valencia, 46021, España
+15-11-2026 23:25:13.208 INFO  [main] proyecto.Main - 2. Marcos López Díaz (correo: marcos@example.test)
+15-11-2026 23:25:13.208 INFO  [main] proyecto.Main -    Dirección: Calle Estación 18, Sevilla, 41001, España
+15-11-2026 23:25:13.208 INFO  [main] proyecto.Main -    Dirección: Gran Vía 42, Bilbao, 48011, España
+15-11-2026 23:25:13.209 INFO  [main] proyecto.Main - 3. Lucía Martín Ortega (correo: lucia@example.test)
+15-11-2026 23:25:13.209 INFO  [main] proyecto.Main -    Dirección: Calle Colón 7, Zaragoza, 50001, España
+15-11-2026 23:25:13.209 INFO  [main] proyecto.Main - 4. Diego Navarro Gil (correo: diego@example.test)
+15-11-2026 23:25:13.209 INFO  [main] proyecto.Main -    Dirección: Rúa do Príncipe 15, Vigo, 36202, España
+15-11-2026 23:25:13.219 INFO  [main] proyecto.Main - 5. Paula Serrano Vidal (correo: paula@example.test)
+15-11-2026 23:25:13.219 INFO  [main] proyecto.Main -    Dirección: Paseo de Gracia 101, Barcelona, 08008, España
+15-11-2026 23:25:13.219 INFO  [main] proyecto.Main -    Dirección: Calle Larios 9, Málaga, 29005, España
+15-11-2026 23:25:14.720 INFO  [main] proyecto.Main - PASO 3 - Catálogo por categoría y stock disponible
+15-11-2026 23:25:14.721 INFO  [main] proyecto.Main - CATEGORÍAS Y PRODUCTOS:
+15-11-2026 23:25:14.746 INFO  [main] proyecto.Main - 1. Componentes
+15-11-2026 23:25:14.747 INFO  [main] proyecto.Main -    1. Core i5-14600K — 329.99 € — stock: 24
+15-11-2026 23:25:14.748 INFO  [main] proyecto.Main -    2. GeForce RTX 4070 Super — 699.99 € — stock: 24
+15-11-2026 23:25:14.748 INFO  [main] proyecto.Main -    3. Radeon RX 7800 XT — 549.99 € — stock: 22
+15-11-2026 23:25:14.750 INFO  [main] proyecto.Main -    4. Ryzen 7 7800X3D — 399.99 € — stock: 23
+15-11-2026 23:25:14.751 INFO  [main] proyecto.Main -    5. Vengeance DDR5 32 GB — 119.99 € — stock: 23
+15-11-2026 23:25:14.752 INFO  [main] proyecto.Main - 2. Periféricos
+15-11-2026 23:25:14.753 INFO  [main] proyecto.Main -    1. Cloud III — 99.99 € — stock: 28
+15-11-2026 23:25:14.753 INFO  [main] proyecto.Main -    2. DeathAdder V3 — 79.99 € — stock: 21
+15-11-2026 23:25:14.753 INFO  [main] proyecto.Main -    3. G Pro X TKL — 149.99 € — stock: 26
+15-11-2026 23:25:14.754 INFO  [main] proyecto.Main - 3. Monitores
+15-11-2026 23:25:14.754 INFO  [main] proyecto.Main -    1. Odyssey G5 27 pulgadas — 279.99 € — stock: 29
+15-11-2026 23:25:14.754 INFO  [main] proyecto.Main -    2. UltraGear 24 pulgadas — 189.99 € — stock: 30
+15-11-2026 23:25:14.754 INFO  [main] proyecto.Main - 4. Almacenamiento
+15-11-2026 23:25:14.755 INFO  [main] proyecto.Main -    1. 990 EVO 1 TB — 99.99 € — stock: 29
+15-11-2026 23:25:14.756 INFO  [main] proyecto.Main -    2. IronWolf 4 TB — 109.99 € — stock: 32
+15-11-2026 23:25:14.756 INFO  [main] proyecto.Main - 5. Refrigeración y energía
+15-11-2026 23:25:14.757 INFO  [main] proyecto.Main -    1. RM750e 750 W — 119.99 € — stock: 33
+15-11-2026 23:25:16.258 INFO  [main] proyecto.Main - PASO 4 - Historial de movimientos de stock registrados
+15-11-2026 23:25:16.259 INFO  [main] proyecto.Main - MOVIMIENTOS DE PRODUCTOS MODIFICADOS:
+15-11-2026 23:25:16.281 INFO  [main] proyecto.Main - 1. GeForce RTX 4070 Super — COMPRA — 15:11:2026 23:25:11
+15-11-2026 23:25:16.282 INFO  [main] proyecto.Main - 2. GeForce RTX 4070 Super — VENTA — 15:11:2026 23:25:11
+15-11-2026 23:25:16.283 INFO  [main] proyecto.Main - 3. Vengeance DDR5 32 GB — COMPRA — 15:11:2026 23:25:11
+15-11-2026 23:25:16.283 INFO  [main] proyecto.Main - 4. Vengeance DDR5 32 GB — VENTA — 15:11:2026 23:25:11
+15-11-2026 23:25:16.283 INFO  [main] proyecto.Main - 5. DeathAdder V3 — AJUSTE — 15:11:2026 23:25:11
+15-11-2026 23:25:16.283 INFO  [main] proyecto.Main - 6. DeathAdder V3 — VENTA — 15:11:2026 23:25:11
+15-11-2026 23:25:16.284 INFO  [main] proyecto.Main - 7. G Pro X TKL — COMPRA — 15:11:2026 23:25:11
+15-11-2026 23:25:16.285 INFO  [main] proyecto.Main - 8. G Pro X TKL — VENTA — 15:11:2026 23:25:11
+15-11-2026 23:25:16.285 INFO  [main] proyecto.Main - 9. 990 EVO 1 TB — COMPRA — 15:11:2026 23:25:11
+15-11-2026 23:25:16.286 INFO  [main] proyecto.Main - 10. 990 EVO 1 TB — VENTA — 15:11:2026 23:25:11
+15-11-2026 23:25:17.787 INFO  [main] proyecto.Main - PASO 5 - Crear tres pedidos y mostrar sus líneas y pagos
+15-11-2026 23:25:17.843 ERROR [main] proyecto.Main - No se pudo ejecutar la aplicación de Tech Store
+java.sql.SQLException: La base de datos no devolvió el identificador de la línea
+	at proyecto.dao.DetallePedidoDAO.insertar(DetallePedidoDAO.java:29)
+	at proyecto.service.PedidoService.realizarPedido(PedidoService.java:110)
+	at proyecto.Main.crearPedidosDeEjemplo(Main.java:152)
+	at proyecto.Main.ejecutarSimulacion(Main.java:83)
+	at proyecto.Main.main(Main.java:48)

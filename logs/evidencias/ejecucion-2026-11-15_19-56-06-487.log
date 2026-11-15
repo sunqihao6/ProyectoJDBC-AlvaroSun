@@ -1,0 +1,23 @@
+15-11-2026 19:57:16.216 INFO  [main] proyecto.Main - -----------------------------------------------------------------------
+15-11-2026 19:57:19.323 INFO  [main] proyecto.Main - --------------------------------TECH STORE-----------------------------
+15-11-2026 19:57:20.095 INFO  [main] proyecto.Main - -----------------------------------------------------------------------
+15-11-2026 19:57:21.243 INFO  [main] proyecto.Main - PASO 1 - Creación de tablas y registros
+15-11-2026 20:00:08.053 INFO  [main] proyecto.connection.DatabaseInitializer - Conectando a H2
+15-11-2026 20:03:06.289 INFO  [main] proyecto.database.DatabaseSchemaInitializer - Esquema de Tech Store recreado desde cero
+15-11-2026 20:04:04.404 INFO  [main] proyecto.database.InitialDataLoader - Datos iniciales cargados: 5 categorías, 13 productos, 5 clientes y 2 pedidos
+15-11-2026 20:04:06.506 INFO  [main] proyecto.connection.DatabaseInitializer - Inicialización de H2 terminada
+15-11-2026 20:04:15.064 INFO  [main] proyecto.Main - PASO 2 - Clientes y direcciones
+15-11-2026 20:04:15.068 INFO  [main] proyecto.Main - CLIENTES:
+15-11-2026 20:04:15.140 INFO  [main] proyecto.Main - 1. Alba Sánchez Ruiz (correo: alba@example.test)
+15-11-2026 20:04:15.145 INFO  [main] proyecto.Main -    Dirección: Calle Mayor 10, Madrid, 28013, España
+15-11-2026 20:04:15.149 INFO  [main] proyecto.Main -    Dirección: Av. del Puerto 25, Valencia, 46021, España
+15-11-2026 20:04:15.152 INFO  [main] proyecto.Main - 2. Marcos López Díaz (correo: marcos@example.test)
+15-11-2026 20:04:15.157 INFO  [main] proyecto.Main -    Dirección: Calle Estación 18, Sevilla, 41001, España
+15-11-2026 20:04:15.160 INFO  [main] proyecto.Main -    Dirección: Gran Vía 42, Bilbao, 48011, España
+15-11-2026 20:04:15.164 INFO  [main] proyecto.Main - 3. Lucía Martín Ortega (correo: lucia@example.test)
+15-11-2026 20:04:15.168 INFO  [main] proyecto.Main -    Dirección: Calle Colón 7, Zaragoza, 50001, España
+15-11-2026 20:04:15.173 INFO  [main] proyecto.Main - 4. Diego Navarro Gil (correo: diego@example.test)
+15-11-2026 20:04:15.177 INFO  [main] proyecto.Main -    Dirección: Rúa do Príncipe 15, Vigo, 36202, España
+15-11-2026 20:04:15.183 INFO  [main] proyecto.Main - 5. Paula Serrano Vidal (correo: paula@example.test)
+15-11-2026 20:04:15.188 INFO  [main] proyecto.Main -    Dirección: Paseo de Gracia 101, Barcelona, 08008, España
+15-11-2026 20:04:15.192 INFO  [main] proyecto.Main -    Dirección: Calle Larios 9, Málaga, 29005, España
